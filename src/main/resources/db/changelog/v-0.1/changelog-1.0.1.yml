@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: tasks table creation
+      author: Javid
+      changes:
+        - createTable:
+            tableName: tasks
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: bigint
+                  constraints:
+                    foreignKeyName: fk_tasks_to_users
+                    references: users(id)
+                    nullable: true
+
+            remarks: Table to store tasks information

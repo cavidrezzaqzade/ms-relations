@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: roles table creation
+      author: Javid
+      changes:
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: role_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+            remarks: Table to store roles information

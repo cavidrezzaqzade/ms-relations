@@ -1,11 +1,11 @@
 package az.ingress.msrelations.mapper;
 
-import az.ingress.msrelations.dao.entity.User;
-import az.ingress.msrelations.model.UserDto;
-import org.mapstruct.BeanMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import az.ingress.msrelations.dao.entity.UserDetailEntity;
+import az.ingress.msrelations.dao.entity.UserEntity;
+import az.ingress.msrelations.model.user.UserDto;
+import az.ingress.msrelations.model.userDetail.UserDetailDto;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -16,13 +16,19 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
 
-    public abstract User dtoToEntity(UserDto dto);
-    public abstract UserDto entityToDto(User entity);
+    @Autowired
+    private UserDetailMapper userDetailMapper;
 
-    public abstract List<User> dtosToEntities(List<UserDto> dtos);
-    public abstract List<UserDto> entitiesToDtos(List<User> entities);
+    @Mapping(target = "userDetail", source = "userDetail", qualifiedByName = "userDetailDtoToUserDetailEntity")
+    public abstract UserEntity dtoToEntity(UserDto dto);
+    public abstract UserDto entityToDto(UserEntity entity);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    public abstract User updateUser(@MappingTarget User entity, UserDto dto);
+    public abstract List<UserEntity> dtosToEntities(List<UserDto> dtos);
+    public abstract List<UserDto> entitiesToDtos(List<UserEntity> entities);
 
+
+    @Named("userDetailDtoToUserDetailEntity")
+    public UserDetailEntity userDetailDtoToUserDetailEntity(UserDetailDto dto){
+        return userDetailMapper.dtoToEntity(dto);
+    }
 }
