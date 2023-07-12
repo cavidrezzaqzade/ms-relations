@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.*;
 
 import static jakarta.persistence.CascadeType.ALL;
+import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.FetchType.LAZY;
 
 @ToString
@@ -25,18 +26,20 @@ public class UserEntity {
     private String name;
 
     @OneToOne(
-            mappedBy = "user" ,
+            cascade = PERSIST,
+            mappedBy = "user",
             fetch = LAZY)
     @ToString.Exclude
     private UserDetailEntity userDetail;
 
-    @ManyToMany(cascade = ALL)
+    @ManyToMany(/*cascade = ALL*/)
     @JoinTable(
             name="users_roles",
             joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="role_id",referencedColumnName = "id")
     )
     @ToString.Exclude
+    @Builder.Default
     private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(
@@ -44,7 +47,7 @@ public class UserEntity {
             cascade = ALL
     )
     @ToString.Exclude
-    private List<TaskEntity> tasks;
+    private List<TaskEntity> tasks = new ArrayList<>();
 
     public void addRole(RoleEntity roleEntity) {
         roles.add(roleEntity);

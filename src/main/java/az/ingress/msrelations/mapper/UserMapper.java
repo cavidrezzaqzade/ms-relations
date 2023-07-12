@@ -19,7 +19,10 @@ public abstract class UserMapper {
     @Autowired
     private UserDetailMapper userDetailMapper;
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+            nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
     @Mapping(target = "userDetail", source = "userDetail", qualifiedByName = "userDetailDtoToUserDetailEntity")
+    @Mapping(target = "roles", source = "roleIds", ignore = true)
     public abstract UserEntity dtoToEntity(UserDto dto);
     public abstract UserDto entityToDto(UserEntity entity);
 

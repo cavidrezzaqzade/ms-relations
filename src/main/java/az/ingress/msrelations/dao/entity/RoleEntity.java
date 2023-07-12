@@ -2,6 +2,8 @@ package az.ingress.msrelations.dao.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class RoleEntity {
 
     @ManyToMany(mappedBy = "roles")
     @ToString.Exclude
-    private Set<UserEntity> users;
+    private Set<UserEntity> users = new HashSet<>();
 
     public RoleEntity(Long id) {
         this.id = id;

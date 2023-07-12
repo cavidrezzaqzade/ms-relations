@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
     public void add(UserDto userDto) {
         UserEntity user = mapper.dtoToEntity(userDto);
 
-        user.getUserDetail().setUser(user);
+//        user.getUserDetail().setUser(user);
 
         user.addRole(new RoleEntity(1L));
 

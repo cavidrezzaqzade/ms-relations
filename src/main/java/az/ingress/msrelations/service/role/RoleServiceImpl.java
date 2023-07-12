@@ -6,6 +6,7 @@ import az.ingress.msrelations.mapper.RoleMapper;
 import az.ingress.msrelations.model.role.RoleDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 /**
  * @author caci
@@ -17,6 +18,12 @@ public class RoleServiceImpl implements RoleService {
 
     private final RoleRepository repository;
     private final RoleMapper mapper;
+
+    @Override
+    public List<RoleDto> getAll() {
+        List<RoleEntity> roles = repository.findAll();
+        return mapper.entitiesToDtos(roles);
+    }
 
     @Override
     public void add(RoleDto roleDto) {
