@@ -18,8 +18,8 @@ import lombok.experimental.FieldDefaults;
 public class RoleDto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long id;
+    Long id;
 
     @NotBlank
-    private String roleName;
+    String roleName;
 }

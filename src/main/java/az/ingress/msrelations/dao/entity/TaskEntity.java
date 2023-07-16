@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.Objects;
 
+import static jakarta.persistence.CascadeType.PERSIST;
 import static jakarta.persistence.FetchType.LAZY;
 
 /**
@@ -32,7 +33,10 @@ public class TaskEntity {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne(fetch = LAZY)
+    @ManyToOne(
+            fetch = LAZY/*,
+            cascade = PERSIST*/
+    )
     @ToString.Exclude
     private UserEntity user;
 

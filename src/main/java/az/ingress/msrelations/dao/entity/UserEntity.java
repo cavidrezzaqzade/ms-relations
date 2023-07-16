@@ -50,11 +50,15 @@ public class UserEntity {
     private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(
-            mappedBy = "user",
-            cascade = ALL
+            mappedBy = "user"/*,
+            cascade = ALL*/
     )
     @ToString.Exclude
     private List<TaskEntity> tasks = new ArrayList<>();
+
+    public UserEntity(Long id) {
+        this.id = id;
+    }
 
     public void addRole(RoleEntity roleEntity) {
         roles.add(roleEntity);

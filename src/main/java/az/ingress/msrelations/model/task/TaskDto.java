@@ -2,6 +2,7 @@ package az.ingress.msrelations.model.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -21,9 +22,13 @@ public class TaskDto {
     Long id;
 
     @NotBlank
-    private String title;
+    String title;
 
     @NotBlank
-    private String description;
+    String description;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull
+    Long userId;
 
 }

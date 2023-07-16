@@ -1,6 +1,7 @@
 package az.ingress.msrelations.service.task;
 
 import az.ingress.msrelations.dao.entity.TaskEntity;
+import az.ingress.msrelations.dao.entity.UserEntity;
 import az.ingress.msrelations.dao.repository.TaskRepository;
 import az.ingress.msrelations.mapper.TaskMapper;
 import az.ingress.msrelations.model.task.TaskDto;
@@ -27,6 +28,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void add(TaskDto taskDto) {
         TaskEntity task = mapper.dtoToEntity(taskDto);
+        task.setUser(new UserEntity(taskDto.getUserId()));
         repository.save(task);
     }
 }
