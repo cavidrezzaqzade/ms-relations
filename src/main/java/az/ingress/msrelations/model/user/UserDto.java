@@ -27,6 +27,7 @@ public class  UserDto {
 
     UserDetailDto userDetail;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     List<Long> roleIds;
 
 }

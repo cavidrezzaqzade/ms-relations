@@ -4,10 +4,17 @@ import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
 
-import static jakarta.persistence.CascadeType.ALL;
-import static jakarta.persistence.CascadeType.PERSIST;
+import static jakarta.persistence.CascadeType.*;
 import static jakarta.persistence.FetchType.LAZY;
 
+@NamedEntityGraph(
+        name = "user-entity-graph",
+        attributeNodes = {
+                @NamedAttributeNode("roles"),
+                @NamedAttributeNode("userDetail"),
+                @NamedAttributeNode("tasks")
+        }
+)
 @ToString
 @Getter
 @Setter
@@ -32,7 +39,7 @@ public class UserEntity {
     @ToString.Exclude
     private UserDetailEntity userDetail;
 
-    @ManyToMany(/*cascade = ALL*/)
+    @ManyToMany(/*cascade = {PERSIST,MERGE}*/)
     @JoinTable(
             name="users_roles",
             joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
